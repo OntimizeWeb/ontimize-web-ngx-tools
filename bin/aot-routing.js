@@ -1,8 +1,6 @@
 #! /usr/bin/env node
 'use strict';
 
-const shell = require("shelljs");
-const yargs = require("yargs");
 const glob = require("glob");
 const fs = require('fs');
 
