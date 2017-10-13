@@ -4,6 +4,7 @@ const shell = require("shelljs");
 const yargs = require("yargs");
 const searchReplaceRoutingFiles = require('./aot-routing');
 const parseAngularCli = require('./angular-cli-parsing');
+const addLibrariesAssets = require('./assets/assets');
 
 if (!shell.which('git')) {
   shell.echo('Sorry, this script requires git');
@@ -55,6 +56,8 @@ yargs.command("production-aot", "building aot distribution version", function (y
 
       /* 'styles' */
       shell.exec('node_modules\\.bin\\node-sass tmp-src/styles-aot.scss dist/assets/css/app.css --output-style compressed');
+
+      addLibrariesAssets();
 
       /* 'clean:aot' */
       shell.rm('-rf', ['./tmp-src']);
