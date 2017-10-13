@@ -7,15 +7,14 @@ function addLibrariesAssets() {
   addFlagIconsAssets();
 }
 
-
 function addOMapModuleAssets() {
   if (shell.test('-d', './node_modules/ontimize-web-ngx-map')) {
     shell.cp('-R',
-      './node_modules/ontimize-web-ngx-map/leaflet/**',
+      './node_modules/ontimize-web-ngx-map/assets/leaflet/**',
       './dist/assets/css/leaflet');
 
     shell.cp('-R',
-      './node_modules/ontimize-web-ngx-map/leaflet/images/marker*',
+      './node_modules/ontimize-web-ngx-map/assets/leaflet/images/marker*',
       './dist/assets');
   }
 }
@@ -25,7 +24,7 @@ function addFlagIconsAssets() {
   if (shell.test('-d', './node_modules/flag-icon-css') && !shell.test('-d', './dist/assets/flags')) {
     shell.cp('-R',
       './node_modules/flag-icon-css/flags/**',
-      './dist/assets/assets/flags');
+      './dist/assets/flags');
   }
 }
 
