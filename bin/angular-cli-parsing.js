@@ -2,6 +2,7 @@
 'use strict';
 const shell = require("shelljs");
 const fs = require('fs');
+const { getAssetsStyleFiles } = require('./assets/assets');
 
 function writeStylesFile(stylesArray) {
   return new Promise((resolve, reject) => {
@@ -31,9 +32,17 @@ function parseAngularCli() {
       var appData = JSON.parse(data).apps[0];
       /*styles*/
       var stylesArray = [];
-      if (appData && appData.styles && appData.styles.length) {
-        writeStylesFile(appData.styles);
+
+      var assetsCssFiles = getAssetsStyleFiles();
+      for (var i = 0, len = assetsCssFiles.length; i < len; i++) {
+        stylesArray.push(assetsCssFiles[i]);
       }
+      if (appData && appData.styles && appData.styles.length) {
+        for (var i = 0, len = appData.styles.length; i < len; i++) {
+          stylesArray.push(appData.styles[i]);
+        }
+      }
+      writeStylesFile(stylesArray);
       /*scripts*/
       var scriptsArray = [];
       if (appData && appData.scripts && appData.scripts.length) {
