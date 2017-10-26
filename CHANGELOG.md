@@ -1,3 +1,10 @@
+#1.0.2
+
+### Features
+
+* **assets**: adding '*flag-icon-css*' support for galician.
+* **environment**: copying '*environment.prod.ts*' file.
+
 #1.0.1
 
 ### Features
