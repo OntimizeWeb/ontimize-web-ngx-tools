@@ -4,7 +4,7 @@ const shell = require("shelljs");
 const yargs = require("yargs");
 const searchReplaceRoutingFiles = require('./aot-routing');
 const parseAngularCli = require('./angular-cli-parsing');
-const addLibrariesAssets = require('./assets/assets');
+const { addLibrariesAssets } = require('./assets/assets');
 
 if (!shell.which('git')) {
   shell.echo('Sorry, this script requires git');
@@ -23,12 +23,32 @@ yargs.command("production-aot", "building aot distribution version", function (y
    */
   shell.cp('-R', './src/**', './tmp-src');
 
+  if (shell.test('-f', './aot-config/index_original.ejs')) {
+    /* restoring index.ejs */
+    shell.rm('-rf', ['./aot-config/index.ejs']);
+    shell.mv('./aot-config/index_original.ejs', './aot-config/index.ejs');
+  }
+
+  if (shell.test('-f', './aot-config/webpack-aot.config_original.js')) {
+    /* restoring webpack-aot.config.ejs */
+    shell.rm('-rf', ['./aot-config/webpack-aot.config.js']);
+    shell.mv('./aot-config/webpack-aot.config_original.js', './aot-config/webpack-aot.config.js');
+  }
+
+  /**
+   * environments
+   */
+  if (shell.test('-d', './tmp-src/environments')) {
+    shell.rm('-rf', ['./tmp-src/environments/environment.ts']);
+    shell.mv('./tmp-src/environments/environment.prod.ts', './tmp-src/environments/environment.ts');
+  }
+
   shell.cp('./aot-config/main-aot.ts', './tmp-src');
 
   shell.cp('./aot-config/vendor-aot.ts', './tmp-src');
 
   /* webpack-aot.config.js */
-  shell.cp('./aot-config/webpack-aot.config.js', './aot-config//webpack-aot.config_original.js');
+  shell.cp('./aot-config/webpack-aot.config.js', './aot-config/webpack-aot.config_original.js');
 
   parseAngularCli();
 
@@ -49,13 +69,13 @@ yargs.command("production-aot", "building aot distribution version", function (y
   searchReplaceRoutingFiles().then(
     () => {
       /* 'aot:compile' */
-      shell.exec('node_modules\\.bin\\ngc -p tsconfig.aot.json');
+      shell.exec('ngc -p tsconfig.aot.json');
 
       /* 'aot:bundle'*/
       shell.exec('webpack --config aot-config/webpack-aot.config.js --bail');
 
       /* 'styles' */
-      shell.exec('node_modules\\.bin\\node-sass tmp-src/styles-aot.scss dist/assets/css/app.css --output-style compressed');
+      shell.exec('node-sass --output-style compressed ./tmp-src/styles-aot.scss ./dist/assets/css/app.css ');
 
       addLibrariesAssets();
 
@@ -68,7 +88,7 @@ yargs.command("production-aot", "building aot distribution version", function (y
 
       /* restoring webpack-aot.config.ejs */
       shell.rm('-rf', ['./aot-config/webpack-aot.config.js']);
-      shell.mv('./aot-config//webpack-aot.config_original.js', './aot-config/webpack-aot.config.js');
+      shell.mv('./aot-config/webpack-aot.config_original.js', './aot-config/webpack-aot.config.js');
     },
     () => console.log("Task Errored!")
   );
