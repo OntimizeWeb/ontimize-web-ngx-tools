@@ -10,11 +10,10 @@ function addLibrariesAssets() {
 function addOMapModuleAssets() {
   if (shell.test('-d', './node_modules/ontimize-web-ngx-map')) {
     shell.cp('-R',
-      './node_modules/ontimize-web-ngx-map/assets/leaflet/**',
-      './dist/assets/css/leaflet');
-
+      './node_modules/ontimize-web-ngx-map/images/**',
+      './dist/assets/css/images');
     shell.cp('-R',
-      './node_modules/ontimize-web-ngx-map/assets/leaflet/images/marker*',
+      './node_modules/ontimize-web-ngx-map/images/marker**',
       './dist/assets');
   }
 }
