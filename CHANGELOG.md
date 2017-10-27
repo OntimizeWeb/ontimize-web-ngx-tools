@@ -1,3 +1,10 @@
+#1.0.2
+
+### Features
+
+* **assets**: adding '*flag-icon-css*' support for galician.
+* **environment**: copying '*environment.prod.ts*' file ([#2](https://github.com/OntimizeWeb/ontimize-web-ng2/issues/2)) ([c4e5873](https://github.com/OntimizeWeb/ontimize-web-ng2/commit/c4e5873))
+
 #1.0.1
 
 ### Features
