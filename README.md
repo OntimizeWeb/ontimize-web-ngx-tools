@@ -57,7 +57,9 @@ Commands:
 
 Options:
 
-  --href      index.html <base href=> value (default './')  [string]
+  --href         index.html <base href=> value (default './')  [string]
+
+  --environment  environment file name (it must be stored in src/environments) (default 'environment.prod.ts')  [string]
 
   -h, --help  Show help                                     [boolean]
 ```
