@@ -38,9 +38,13 @@ yargs.command("production-aot", "building aot distribution version", function (y
   /**
    * environments
    */
-  if (shell.test('-d', './tmp-src/environments')) {
-    shell.rm('-rf', ['./tmp-src/environments/environment.ts']);
-    shell.mv('./tmp-src/environments/environment.prod.ts', './tmp-src/environments/environment.ts');
+  if (shell.test('-d', './tmp-src/environments') && shell.test('-d', './src/environments')) {
+    shell.rm('-rf', ['./tmp-src/environments/**']);
+    var environmentFile = (args && args.environment) ? args.environment : 'environment.prod';
+    if (!environmentFile.endsWith('.ts')){
+      environmentFile += '.ts';
+    }
+    shell.cp('./src/environments/' + environmentFile, './tmp-src/environments/environment.ts');
   }
 
   shell.cp('./aot-config/main-aot.ts', './tmp-src');
@@ -100,6 +104,13 @@ var argv = yargs.usage("$0 command")
     alias: "href",
     demand: false,
     describe: "index.html <base href=> value (default './')",
+    type: "string"
+  })
+  .option("environment", {
+    alias: "environment",
+    demand: false,
+    default: 'environment.prod.ts',
+    describe: "environment file name (it must be stored in src/environments)",
     type: "string"
   })
   .help("h")
