@@ -3,6 +3,7 @@
 const shell = require("shelljs");
 const fs = require('fs');
 const { getAssetsStyleFiles } = require('./assets/assets');
+const AVOID_ASSETS = [];
 
 function writeStylesFile(stylesArray) {
   return new Promise((resolve, reject) => {
@@ -50,12 +51,22 @@ function parseAngularCli() {
           scriptsArray.push('tmp-src/' + appData.scripts[i]);
         }
       }
-      if (scriptsArray.length) {
-        var scriptsArrayString = JSON.stringify(scriptsArray);
-        shell.ls('./aot-config/webpack-aot.config.js').forEach(function (file) {
-          shell.sed('-i', /APP_SCRIPTS/, scriptsArrayString, file);
-        });
-      }
+      var scriptsArrayString = scriptsArray.length > 0 ? JSON.stringify(scriptsArray) : '';
+      shell.ls('./aot-config/webpack-aot.config.js').forEach(function (file) {
+        shell.sed('-i', /APP_SCRIPTS/, scriptsArrayString, file);
+      });
+
+      /*assets*/
+
+      // if (appData && appData.assets && appData.assets.length) {
+      //   for (var i = 0, len = appData.assets.length; i < len; i++) {
+      //     if (AVOID_ASSETS.indexOf(appData.assets[i]) === -1) {
+
+      //     }
+
+      //   }
+      // }
+
     } catch (e) {
       console.error(e);
     }

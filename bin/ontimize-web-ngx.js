@@ -16,7 +16,7 @@ yargs.command("production-aot", "building aot distribution version", function (y
   /**
    * 'clean'
    */
-  shell.rm('-rf', ['./dist', './tmp-src']);
+  shell.rm('-Rf', ['./dist', './tmp-src']);
 
   /**
    * 'copy:tasks'
@@ -25,13 +25,13 @@ yargs.command("production-aot", "building aot distribution version", function (y
 
   if (shell.test('-f', './aot-config/index_original.ejs')) {
     /* restoring index.ejs */
-    shell.rm('-rf', ['./aot-config/index.ejs']);
+    shell.rm('-Rf', ['./aot-config/index.ejs']);
     shell.mv('./aot-config/index_original.ejs', './aot-config/index.ejs');
   }
 
   if (shell.test('-f', './aot-config/webpack-aot.config_original.js')) {
     /* restoring webpack-aot.config.ejs */
-    shell.rm('-rf', ['./aot-config/webpack-aot.config.js']);
+    shell.rm('-Rf', ['./aot-config/webpack-aot.config.js']);
     shell.mv('./aot-config/webpack-aot.config_original.js', './aot-config/webpack-aot.config.js');
   }
 
@@ -39,15 +39,17 @@ yargs.command("production-aot", "building aot distribution version", function (y
    * environments
    */
   if (shell.test('-d', './tmp-src/environments') && shell.test('-d', './src/environments')) {
-    shell.rm('-rf', ['./tmp-src/environments/**']);
+    shell.rm('-Rf', ['./tmp-src/environments/**']);
     var environmentFile = (args && args.environment) ? args.environment : 'environment.prod';
-    if (!environmentFile.endsWith('.ts')){
+    if (!environmentFile.endsWith('.ts')) {
       environmentFile += '.ts';
     }
     shell.cp('./src/environments/' + environmentFile, './tmp-src/environments/environment.ts');
   }
 
-  shell.cp('./aot-config/main-aot.ts', './tmp-src');
+  if (shell.test('-f', './aot-config/main-aot.ts')) {
+    shell.cp('./aot-config/main-aot.ts', './tmp-src');
+  }
 
   shell.cp('./aot-config/vendor-aot.ts', './tmp-src');
 
@@ -84,14 +86,14 @@ yargs.command("production-aot", "building aot distribution version", function (y
       addLibrariesAssets();
 
       /* 'clean:aot' */
-      shell.rm('-rf', ['./tmp-src']);
+      shell.rm('-Rf', ['./tmp-src']);
 
       /* restoring index.ejs */
-      shell.rm('-rf', ['./aot-config/index.ejs']);
+      shell.rm('-Rf', ['./aot-config/index.ejs']);
       shell.mv('./aot-config/index_original.ejs', './aot-config/index.ejs');
 
       /* restoring webpack-aot.config.ejs */
-      shell.rm('-rf', ['./aot-config/webpack-aot.config.js']);
+      shell.rm('-Rf', ['./aot-config/webpack-aot.config.js']);
       shell.mv('./aot-config/webpack-aot.config_original.js', './aot-config/webpack-aot.config.js');
     },
     () => console.log("Task Errored!")
