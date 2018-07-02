@@ -3,8 +3,17 @@
 const shell = require("shelljs");
 
 function addLibrariesAssets() {
+  addOntimizeIconSet();
   addOMapModuleAssets();
   addFlagIconsAssets();
+}
+
+function addOMapModuleAssets() {
+  if (shell.test('-d', './node_modules/ontimize-web-ngx/assets/svg')) {
+    shell.cp('-R',
+      './node_modules/ontimize-web-ngx/assets/svg/**',
+      './dist/assets/svg');
+  }
 }
 
 function addOMapModuleAssets() {
@@ -17,7 +26,6 @@ function addOMapModuleAssets() {
       './dist/assets');
   }
 }
-
 
 function addFlagIconsAssets() {
   if (shell.test('-d', './node_modules/flag-icon-css')) {

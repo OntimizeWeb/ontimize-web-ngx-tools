@@ -1,3 +1,7 @@
+# 1.0.4 (2018-07-02)
+### Features
+* **assets**: updating assets for 'ontimize-web-ngx@3.0.0-rc.1'
+
 # 1.0.4 (2018-04-30)
 ### Features
 * **assets**: updating assets for 'ontimize-web-ngx@3.0.0-rc.0'
