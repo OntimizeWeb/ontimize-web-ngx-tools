@@ -1,4 +1,8 @@
-# 1.0.4 (2018-07-02)
+# 1.0.6 (2018-07-03)
+### Bug fixing
+* Fixing bug of previous version
+
+# 1.0.5 (2018-07-02)
 ### Features
 * **assets**: updating assets for 'ontimize-web-ngx@3.0.0-rc.1'
 

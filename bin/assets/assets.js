@@ -8,7 +8,7 @@ function addLibrariesAssets() {
   addFlagIconsAssets();
 }
 
-function addOMapModuleAssets() {
+function addOntimizeIconSet() {
   if (shell.test('-d', './node_modules/ontimize-web-ngx/assets/svg')) {
     shell.cp('-R',
       './node_modules/ontimize-web-ngx/assets/svg/**',
