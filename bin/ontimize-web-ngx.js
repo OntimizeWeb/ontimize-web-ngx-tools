@@ -6,11 +6,6 @@ const searchReplaceRoutingFiles = require('./aot-routing');
 const parseAngularCli = require('./angular-cli-parsing');
 const { addLibrariesAssets } = require('./assets/assets');
 
-if (!shell.which('git')) {
-  shell.echo('Sorry, this script requires git');
-  shell.exit(1);
-}
-
 yargs.command("production-aot", "building aot distribution version", function (yargs) {
   var args = yargs.argv;
   /**
