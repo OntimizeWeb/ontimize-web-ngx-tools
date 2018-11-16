@@ -24,7 +24,7 @@ function writeStylesFile(stylesArray) {
   });
 }
 
-function parseAngularCli(projectName) {
+function angularJSONParsing(projectName) {
   fs.readFile('angular.json', 'utf8', function (err, data) {
     if (err) {
       return console.log(err);
@@ -75,6 +75,6 @@ function parseAngularCli(projectName) {
   });
 }
 /**
- * Expose `parseAngularCli`
+ * Expose `angularJSONParsing`
  */
-module.exports = parseAngularCli;
+module.exports = angularJSONParsing;

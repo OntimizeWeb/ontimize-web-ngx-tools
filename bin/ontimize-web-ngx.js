@@ -3,13 +3,8 @@
 const shell = require("shelljs");
 const yargs = require("yargs");
 const searchReplaceRoutingFiles = require('./aot-routing');
-const parseAngularCli = require('./angular-cli-parsing');
+const angularJSONParsing = require('./angular-json-parsing');
 const { addLibrariesAssets } = require('./assets/assets');
-
-if (!shell.which('git')) {
-  shell.echo('Sorry, this script requires git');
-  shell.exit(1);
-}
 
 yargs.command("production-aot", "building aot distribution version", function (yargs) {
   var args = yargs.argv;
@@ -56,7 +51,7 @@ yargs.command("production-aot", "building aot distribution version", function (y
   /* webpack-aot.config.js */
   shell.cp('./aot-config/webpack-aot.config.js', './aot-config/webpack-aot.config_original.js');
 
-  parseAngularCli(args.projectName);
+  angularJSONParsing(args.projectName);
 
   /* index.ejs */
   shell.cp('./aot-config/index.ejs', './aot-config/index_original.ejs');
