@@ -1,3 +1,11 @@
+# 4.0.0 (2019-02-21)
+### Features
+* **assets**: updating assets for 'ontimize-web-ngx@4.0.0'
+
+# 4.0.0-rc.0 (2018-11-16)
+### Features
+* **assets**: updating assets for 'ontimize-web-ngx@4.0.0-rc.0'
+
 # 1.0.7 (2018-10-25)
 ### Bug fixing
 * Removing unnecesary git installation checking

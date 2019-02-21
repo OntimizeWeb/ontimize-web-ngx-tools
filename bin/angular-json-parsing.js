@@ -24,13 +24,15 @@ function writeStylesFile(stylesArray) {
   });
 }
 
-function parseAngularCli() {
-  fs.readFile('.angular-cli.json', 'utf8', function (err, data) {
+function angularJSONParsing(projectName) {
+  fs.readFile('angular.json', 'utf8', function (err, data) {
     if (err) {
       return console.log(err);
     }
     try {
-      var appData = JSON.parse(data).apps[0];
+      var projectsData = JSON.parse(data).projects;
+
+      var appData = projectsData[projectName].architect.build.options;
       /*styles*/
       var stylesArray = [];
 
@@ -73,6 +75,6 @@ function parseAngularCli() {
   });
 }
 /**
- * Expose `parseAngularCli`
+ * Expose `angularJSONParsing`
  */
-module.exports = parseAngularCli;
+module.exports = angularJSONParsing;

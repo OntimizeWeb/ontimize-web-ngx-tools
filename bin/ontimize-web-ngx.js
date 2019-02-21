@@ -3,7 +3,7 @@
 const shell = require("shelljs");
 const yargs = require("yargs");
 const searchReplaceRoutingFiles = require('./aot-routing');
-const parseAngularCli = require('./angular-cli-parsing');
+const angularJSONParsing = require('./angular-json-parsing');
 const { addLibrariesAssets } = require('./assets/assets');
 
 yargs.command("production-aot", "building aot distribution version", function (yargs) {
@@ -51,7 +51,7 @@ yargs.command("production-aot", "building aot distribution version", function (y
   /* webpack-aot.config.js */
   shell.cp('./aot-config/webpack-aot.config.js', './aot-config/webpack-aot.config_original.js');
 
-  parseAngularCli();
+  angularJSONParsing(args.projectName);
 
   /* index.ejs */
   shell.cp('./aot-config/index.ejs', './aot-config/index_original.ejs');
@@ -108,6 +108,13 @@ var argv = yargs.usage("$0 command")
     demand: false,
     default: 'environment.prod.ts',
     describe: "environment file name (it must be stored in src/environments)",
+    type: "string"
+  })
+  .option("project-name", {
+    alias: "projectName",
+    demand: true,
+    default: '',
+    describe: "angular.json project name",
     type: "string"
   })
   .help("h")
